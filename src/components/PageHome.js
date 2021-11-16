@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 function PageHome(props) {
     const products = useSelector((state) => state)
     const dispatch = useDispatch()
-
+    const [page,setPage] = useState(1)
+    // const [prod,setProd] = useState([])
     const fetchProducts = async ()=>{
         const response = await axios.post('http://fda.intertoons.com/api/V1/products',{
-            "currentpage":1,
-              "pagesize":100,
+            "currentpage":page,
+              "pagesize":10,
               "sortorder": {
                   "field":"menu_name",
                   "direction":"desc"
@@ -24,17 +25,38 @@ function PageHome(props) {
           {
             headers: {"Authorization" : "Bearer akhil@intertoons.com"}
           });
-          dispatch(setProducts(response.data.data.products));
+        //   if(prod){
+        //       setProd(prod=>[...prod,...response.data.data.products])
+        //   }
+        //   else{
+        //     setProd(response.data.data.products)
+        //   }
+        //   console.log(prod);
+        let allPrd = [...products.allProducts.products,...response.data.data.products]
+        console.log(allPrd);
+        // dispatch(setProducts(response.data.data.products));
+        dispatch(setProducts(allPrd))
     }
     useEffect(() => {
         fetchProducts()
     }, [])
 
-
     
-
+    const loadpage = ()=>{
+        console.log("scrolled");
+        setPage(page+1)
+        console.log(page);
+        fetchProducts()
+    }
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+          // you're at the bottom of the page
+          loadpage()
+        }
+      };
+    // window.document.addEventListener('scroll',loadScroll)
     return (
-        <div className="container ps-4 pt-4 product-container">
+        <div className="container ps-4 pt-4 product-container"  >
             {
                products.allProducts.products.map((pr)=>{
                    return(
