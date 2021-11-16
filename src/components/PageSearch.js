@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import ProductCard from './ProductCard';
-import { setProducts } from "../redux/actions/productsActions";
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import ProductCard from './ProductCard';
 
-function PageHome(props) {
-    const products = useSelector((state) => state)
-    const dispatch = useDispatch()
-
+function PageSearch() {
+    const [products,setProducts] = useState([])
+    const pString = useParams()
     const fetchProducts = async ()=>{
         const response = await axios.post('http://fda.intertoons.com/api/V1/products',{
             "currentpage":1,
@@ -16,7 +14,7 @@ function PageHome(props) {
                   "field":"menu_name",
                   "direction":"desc"
               },
-              "searchstring":"",
+              "searchstring":pString.s,
               "filter":{
                   "category":""
               }
@@ -24,26 +22,20 @@ function PageHome(props) {
           {
             headers: {"Authorization" : "Bearer akhil@intertoons.com"}
           });
-          dispatch(setProducts(response.data.data.products));
+          setProducts(response.data.data.products);
     }
     useEffect(() => {
         fetchProducts()
     }, [])
-
-
-    
-
-    return (
-        <div className="container ps-4 pt-4 product-container">
-            {
-               products.allProducts.products.map((pr)=>{
+        return (
+            <div className="search-panel">
+                {products.map((pr)=>{
                    return(
                        <ProductCard  key={pr.id} data={pr}/>
                    )
-               })
-            }
-        </div>
+               })}
+            </div>
     )
 }
 
-export default PageHome
+export default PageSearch

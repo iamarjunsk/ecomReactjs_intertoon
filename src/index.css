@@ -33,6 +33,24 @@
   text-decoration: none;
 
 }
+.txt-decor{
+  text-decoration: none;
+  color: red;
+  text-decoration-style: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+.search-panel{
+  display: flex;
+  justify-content: center;
+}
 
 @media only screen and (min-width: 600px) {
 #navbarSupportedContent{

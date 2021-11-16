@@ -1,7 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
-import { removeSelectedProduct } from '../redux/actions/productsActions';
+import {addToCart} from '../redux/actions/productsActions'
 
 
 function PageProduct() {
@@ -12,10 +12,9 @@ function PageProduct() {
             product =prod
         }
     }
-
+    const dispatch = useDispatch()
     const products = useSelector((state) => state)
     products.allProducts.products.forEach(pdt);
-    console.log(product);
     return (
         <div className="container">
             <div className="row product-det">
@@ -37,7 +36,7 @@ function PageProduct() {
                     <div className='mt-4'>
                         <b>$ {product.price}</b>
                         <div>
-                            <button className="btn btn-primary mt-2">Add to cart</button>
+                            <button onClick={()=>dispatch(addToCart(product.id))} className="btn btn-primary mt-2">Add to cart</button>
                         </div>
                     </div>
                 </div>
