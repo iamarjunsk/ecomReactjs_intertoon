@@ -25,13 +25,6 @@ function PageHome(props) {
           {
             headers: {"Authorization" : "Bearer akhil@intertoons.com"}
           });
-        //   if(prod){
-        //       setProd(prod=>[...prod,...response.data.data.products])
-        //   }
-        //   else{
-        //     setProd(response.data.data.products)
-        //   }
-        //   console.log(prod);
         let allPrd = [...products.allProducts.products,...response.data.data.products]
         console.log(allPrd);
         // dispatch(setProducts(response.data.data.products));
@@ -50,11 +43,9 @@ function PageHome(props) {
     }
     window.onscroll = function(ev) {
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-          // you're at the bottom of the page
           loadpage()
         }
       };
-    // window.document.addEventListener('scroll',loadScroll)
     return (
         <div className="container ps-4 pt-4 product-container"  >
             {
