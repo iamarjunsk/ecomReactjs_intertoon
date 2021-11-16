@@ -7,7 +7,7 @@ function PageSearch() {
     const [products,setProducts] = useState([])
     const pString = useParams()
     const fetchProducts = async ()=>{
-        const response = await axios.post('http://fda.intertoons.com/api/V1/products',{
+        const response = await axios.post('https://fda.intertoons.com/api/V1/products',{
             "currentpage":1,
               "pagesize":100,
               "sortorder": {

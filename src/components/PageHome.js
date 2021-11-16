@@ -10,7 +10,7 @@ function PageHome(props) {
     const [page,setPage] = useState(1)
     // const [prod,setProd] = useState([])
     const fetchProducts = async ()=>{
-        const response = await axios.post('http://fda.intertoons.com/api/V1/products',{
+        const response = await axios.post('https://fda.intertoons.com/api/V1/products',{
             "currentpage":page,
               "pagesize":10,
               "sortorder": {
